@@ -1,0 +1,28 @@
+[
+  {
+    'repeat(5, 10)': {
+      _id: '{{objectId()}}',
+      make: '{{company().toUpperCase()}}',
+      model: '{{surname()}}',
+      year: '{{integer(1990, 2018)}}',
+      price: '{{integer(20000, 100000)}}',
+      created_at: '{{date()}}',
+      updated_at() {
+        return `${this.created_at}`;
+      },
+      parts: [
+        {
+          'repeat(1, 10)': {
+            _id: '{{objectId()}}',
+            number: '{{guid()}}',
+            name: '{{street()}}',
+            created_at: '{{date()}}',
+            updated_at() {
+              return `${this.created_at}`;
+            }
+          }
+        }
+      ],
+    }
+  }
+]
