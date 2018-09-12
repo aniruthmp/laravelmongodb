@@ -65,6 +65,12 @@ return [
             'block_for' => null,
         ],
 
+//        'rabbitmq' => [
+//            'host' => 'localhost',
+//            'port' => 5672,
+//            'username' => 'guest',
+//            'password' => 'guest',
+//        ],
     ],
 
     /*

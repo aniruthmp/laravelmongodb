@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Entity;
 
 use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
@@ -15,5 +15,9 @@ class Car extends Eloquent
 
     public function parts() {
         return $this->embedsMany(Part::class);
+    }
+
+    public function owner() {
+        return $this->belongsTo(Owner::class);
     }
 }

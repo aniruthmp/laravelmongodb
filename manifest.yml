@@ -1,0 +1,13 @@
+---
+applications:
+- name: php-laravel-mongodb
+  path: .
+  buildpacks:
+#  - php_buildpack
+  - https://github.com/cloudfoundry/php-buildpack
+  memory: 128M
+  instances: 1
+  env:
+    CF_STAGING_TIMEOUT: 15
+    CF_STARTUP_TIMEOUT: 15
+    TEST: php

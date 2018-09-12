@@ -2,13 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Part;
-use App\Car;
+use App\Entity\Owner;
+use App\Entity\Part;
+use App\Entity\Car;
+use Faker\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CarController extends Controller
 {
+    public function random()
+    {
+        $faker = Factory::create();
+        $car = new Car();
+        $car->licensePlate = $faker->isbn10;
+        $car->make = $faker->company;
+        $car->model = $faker->word;
+        $car->year = $faker->year;
+        $car->price = $faker->randomNumber(5);
+        $car->save();
+
+        for ($x = 0; $x <= $faker->randomNumber(1); $x++) {
+            $part = new Part();
+            $part->name = $faker->swiftBicNumber;
+            $part->number = $faker->iban('US');
+            $car->parts()->save($part);
+        }
+
+        $owner = new Owner();
+        $owner->firstName = $faker->firstName;
+        $owner->lastName = $faker->lastName;
+        $owner->save();
+
+        $owner->cars()->save($car);
+        $car->owner()->associate($owner);
+        $car->save();
+
+        return json_encode($car);
+    }
+
     public function findAll()
     {
         $cars = Car::all();
