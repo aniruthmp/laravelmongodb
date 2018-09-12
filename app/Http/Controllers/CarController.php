@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Entity\Car;
 use App\Entity\Owner;
 use App\Entity\Part;
-use App\Entity\Car;
 use Faker\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -35,6 +35,21 @@ class CarController extends Controller
         $owner->save();
 
         $owner->cars()->save($car);
+        $car->owner()->associate($owner);
+        $car->save();
+
+        return json_encode($car);
+    }
+
+    public function update($id) {
+        $car = Car::find($id);
+        // Added this for good coding. Functionality is unaffected if this is removed
+        /** @var $owner Owner */
+        $owner = $car->owner;
+
+        $owner->firstName = strtoupper($owner->firstName);
+        $owner->save();
+
         $car->owner()->associate($owner);
         $car->save();
 

@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('random','CarController@random');
 Route::get('cars','CarController@findAll');
 Route::get('car/{id}','CarController@findById');
+Route::get('car/{id}','CarController@update');
 Route::get('year/{year}','CarController@findByYear');
 Route::post('cars','CarController@add');
 
